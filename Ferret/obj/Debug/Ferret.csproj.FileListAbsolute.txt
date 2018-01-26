@@ -1,0 +1,10 @@
+C:\Users\Jack\source\repos\Ferret\Ferret\bin\Debug\Ferret.exe.config
+C:\Users\Jack\source\repos\Ferret\Ferret\bin\Debug\Ferret.exe
+C:\Users\Jack\source\repos\Ferret\Ferret\bin\Debug\Ferret.pdb
+C:\Users\Jack\source\repos\Ferret\Ferret\obj\Debug\Ferret.csprojResolveAssemblyReference.cache
+C:\Users\Jack\source\repos\Ferret\Ferret\obj\Debug\Ferret.Properties.Resources.resources
+C:\Users\Jack\source\repos\Ferret\Ferret\obj\Debug\Ferret.csproj.GenerateResource.Cache
+C:\Users\Jack\source\repos\Ferret\Ferret\obj\Debug\Ferret.csproj.CoreCompileInputs.cache
+C:\Users\Jack\source\repos\Ferret\Ferret\obj\Debug\Ferret.exe
+C:\Users\Jack\source\repos\Ferret\Ferret\obj\Debug\Ferret.pdb
+C:\Users\Jack\source\repos\Ferret\Ferret\obj\Debug\Ferret.MainView.resources
