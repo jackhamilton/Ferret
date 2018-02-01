@@ -8,3 +8,13 @@ C:\Users\Jack\source\repos\Ferret\Ferret\obj\Debug\Ferret.csproj.CoreCompileInpu
 C:\Users\Jack\source\repos\Ferret\Ferret\obj\Debug\Ferret.exe
 C:\Users\Jack\source\repos\Ferret\Ferret\obj\Debug\Ferret.pdb
 C:\Users\Jack\source\repos\Ferret\Ferret\obj\Debug\Ferret.MainView.resources
+Z:\Documents\Visual Studio 2017\Projects\Ferret\Ferret\bin\Debug\Ferret.exe.config
+Z:\Documents\Visual Studio 2017\Projects\Ferret\Ferret\bin\Debug\Ferret.exe
+Z:\Documents\Visual Studio 2017\Projects\Ferret\Ferret\bin\Debug\Ferret.pdb
+Z:\Documents\Visual Studio 2017\Projects\Ferret\Ferret\obj\Debug\Ferret.csprojResolveAssemblyReference.cache
+Z:\Documents\Visual Studio 2017\Projects\Ferret\Ferret\obj\Debug\Ferret.MainView.resources
+Z:\Documents\Visual Studio 2017\Projects\Ferret\Ferret\obj\Debug\Ferret.Properties.Resources.resources
+Z:\Documents\Visual Studio 2017\Projects\Ferret\Ferret\obj\Debug\Ferret.csproj.GenerateResource.Cache
+Z:\Documents\Visual Studio 2017\Projects\Ferret\Ferret\obj\Debug\Ferret.csproj.CoreCompileInputs.cache
+Z:\Documents\Visual Studio 2017\Projects\Ferret\Ferret\obj\Debug\Ferret.exe
+Z:\Documents\Visual Studio 2017\Projects\Ferret\Ferret\obj\Debug\Ferret.pdb

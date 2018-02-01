@@ -15,7 +15,7 @@ namespace Ferret
     public partial class MainView : Form
     {
         private static Model model;
-        private static string username = "", password = "";
+        private static string username = "jackham8", password = "Blacklight1337";
 
         public MainView()
         {
@@ -26,9 +26,19 @@ namespace Ferret
 
         public ListView getMainListView()
         {
-            return listView1;
+            return currentlyWatchingList;
         }
-        
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+
+        }
+
         private static async void getList()
         {
             MALManager manager = new MALManager(username, password);
