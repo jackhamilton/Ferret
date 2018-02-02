@@ -17,21 +17,12 @@ namespace Ferret
     {
         private static Model currentlyWatchingModel, planToWatchModel,
             onHoldModel, droppedModel, completedModel;
-        private static string username = "", password = "";
+        private static string username = "FerretMALTestAcc", password = "FerretMALManager";
 
         public MainView()
         {
             InitializeComponent();
-            currentlyWatchingModel = new Model(currentlyWatchingList);
-            planToWatchModel = new Model(planToWatchList);
-            onHoldModel = new Model(planToWatchList);
-            droppedModel = new Model(droppedList);
-            completedModel = new Model(completedList);
-            loadAnimeList(AnimeLibrary.getCurrentlyWatching(), currentlyWatchingModel);
-            loadAnimeList(AnimeLibrary.getPlanToWatch(), planToWatchModel);
-            loadAnimeList(AnimeLibrary.getOnHold(), onHoldModel);
-            loadAnimeList(AnimeLibrary.getDropped(), droppedModel);
-            loadAnimeList(AnimeLibrary.getCompleted(), completedModel);
+            loadMALData();
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -44,12 +35,26 @@ namespace Ferret
 
         }
 
-        private static async void loadAnimeList(List<Anime> animes, Model model)
+        private async void loadMALData()
+        {
+            MALManager manager = new MALManager(username, password);
+            await manager.getAnimeList();
+            currentlyWatchingModel = new Model(currentlyWatchingList);
+            planToWatchModel = new Model(planToWatchList);
+            onHoldModel = new Model(onHoldList);
+            droppedModel = new Model(droppedList);
+            completedModel = new Model(completedList);
+            loadAnimeList(AnimeLibrary.getCurrentlyWatching(), currentlyWatchingModel);
+            loadAnimeList(AnimeLibrary.getPlanToWatch(), planToWatchModel);
+            loadAnimeList(AnimeLibrary.getOnHold(), onHoldModel);
+            loadAnimeList(AnimeLibrary.getDropped(), droppedModel);
+            loadAnimeList(AnimeLibrary.getCompleted(), completedModel);
+        }
+
+        private static void loadAnimeList(List<Anime> animes, Model model)
         {
             if (!model.Loaded)
             {
-                MALManager manager = new MALManager(username, password);
-                await manager.getAnimeList();
                 WebClient wc = new WebClient();
                 for (int x = 0; x < animes.Count; x++)
                 {
