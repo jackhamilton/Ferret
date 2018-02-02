@@ -6,6 +6,7 @@ public class Model
 {
     private ImageList loadedTitleBanners = new ImageList();
     private ListView view;
+    private Boolean loaded = false;
 
     public Model(ListView view)
 	{
@@ -14,6 +15,8 @@ public class Model
         loadedTitleBanners.ColorDepth = ColorDepth.Depth32Bit;
         view.LargeImageList = loadedTitleBanners;
 	}
+
+    public bool Loaded { get => loaded; set => loaded = value; }
 
     //Adds a view element to the main ListView.
     public void addViewElement(string name, Image picture)

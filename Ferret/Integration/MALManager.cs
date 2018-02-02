@@ -1,4 +1,5 @@
 ﻿using Ferret;
+using Ferret.Data;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -24,12 +25,10 @@ public class MALManager
             ("Basic", Convert.ToBase64String(Encoding.Default.GetBytes(username + ":" + password)));
     }
 
-    public async Task<Tuple<List<string>, List<string>>> getAnimeList()
+    public async Task getAnimeList()
     {
         String result = await GET("https://myanimelist.net/malappinfo.php?status=all&type=anime&u=" + username);
         //Parse XML
-        //this is hacky, do it better later
-        Tuple<List<string>, List<string>> animes = new Tuple<List<string>, List<string>>(new List<string>(), new List<string>());
         //Read the XML file returned by MAL
         using (XmlReader reader = XmlReader.Create(new StringReader(result)))
         {
@@ -49,23 +48,42 @@ public class MALManager
             //Until it hits the end tag "/myanimelist", read each individual "anime" node and add an element for each.
             while (reader.Name != "myanimelist") {
                 reader.ReadStartElement("anime");
+                Anime tempAnime = new Anime();
                 while (reader.Name != "anime")
                 {
                     XElement el = (XElement)XNode.ReadFrom(reader);
                     if (el.Name == "series_title")
                     {
-                        animes.Item1.Add(el.Value);
+                        tempAnime.Title = el.Value;
                     }
                     if (el.Name == "series_image")
                     {
-                        animes.Item2.Add(el.Value);
+                        tempAnime.PosterLink = el.Value;
+                    }
+                    if (el.Name == "my_status")
+                    {
+                        if (el.Value == "1")
+                        {
+                            AnimeLibrary.addCurrentlyWatching(tempAnime);
+                        } else if (el.Value == "3")
+                        {
+                            AnimeLibrary.addOnHold(tempAnime);
+                        } else if (el.Value == "6")
+                        {
+                            AnimeLibrary.addPlanToWatch(tempAnime);
+                        } else if (el.Value == "4")
+                        {
+                            AnimeLibrary.addDropped(tempAnime);
+                        } else if (el.Value == "2")
+                        {
+                            AnimeLibrary.addCompleted(tempAnime);
+                        }
                     }
                 }
                 reader.ReadEndElement();
             }
             reader.ReadEndElement();
         }
-        return animes;
     }
 
     //Sends an HTML GET request to the given URL, returns a string asynchronously.

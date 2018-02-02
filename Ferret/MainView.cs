@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Ferret.Data;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -14,19 +15,23 @@ namespace Ferret
 {
     public partial class MainView : Form
     {
-        private static Model model;
-        private static string username = "jackham8", password = "Blacklight1337";
+        private static Model currentlyWatchingModel, planToWatchModel,
+            onHoldModel, droppedModel, completedModel;
+        private static string username = "", password = "";
 
         public MainView()
         {
             InitializeComponent();
-            model = new Model(getMainListView());
-            getList();
-        }
-
-        public ListView getMainListView()
-        {
-            return currentlyWatchingList;
+            currentlyWatchingModel = new Model(currentlyWatchingList);
+            planToWatchModel = new Model(planToWatchList);
+            onHoldModel = new Model(planToWatchList);
+            droppedModel = new Model(droppedList);
+            completedModel = new Model(completedList);
+            loadAnimeList(AnimeLibrary.getCurrentlyWatching(), currentlyWatchingModel);
+            loadAnimeList(AnimeLibrary.getPlanToWatch(), planToWatchModel);
+            loadAnimeList(AnimeLibrary.getOnHold(), onHoldModel);
+            loadAnimeList(AnimeLibrary.getDropped(), droppedModel);
+            loadAnimeList(AnimeLibrary.getCompleted(), completedModel);
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -39,17 +44,28 @@ namespace Ferret
 
         }
 
-        private static async void getList()
+        private static async void loadAnimeList(List<Anime> animes, Model model)
         {
-            MALManager manager = new MALManager(username, password);
-            Tuple<List<String>, List<String>> animes = await manager.getAnimeList();
-            WebClient wc = new WebClient();
-            for (int x = 0; x < animes.Item1.Count; x++)
+            if (!model.Loaded)
             {
-                byte[] bytes = wc.DownloadData(animes.Item2[x]);
-                MemoryStream ms = new MemoryStream(bytes);
-                System.Drawing.Image img = System.Drawing.Image.FromStream(ms);
-                model.addViewElement(animes.Item1[x], img);
+                MALManager manager = new MALManager(username, password);
+                await manager.getAnimeList();
+                WebClient wc = new WebClient();
+                for (int x = 0; x < animes.Count; x++)
+                {
+                    if (animes[x].PosterLink != null)
+                    {
+                        byte[] bytes = wc.DownloadData(animes[x].PosterLink);
+                        MemoryStream ms = new MemoryStream(bytes);
+                        System.Drawing.Image img = System.Drawing.Image.FromStream(ms);
+                        model.addViewElement(animes[x].Title, img);
+                    }
+                    else
+                    {
+                        Console.Error.Write("Image for anime \"" + animes[x].Title + "\" stored as null in MALManager.");
+                    }
+                }
+                model.Loaded = true;
             }
         }
     }

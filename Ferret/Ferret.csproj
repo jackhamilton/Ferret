@@ -45,6 +45,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Data\Anime.cs" />
+    <Compile Include="Data\AnimeLibrary.cs" />
     <Compile Include="Model.cs" />
     <Compile Include="MainView.cs">
       <SubType>Form</SubType>
